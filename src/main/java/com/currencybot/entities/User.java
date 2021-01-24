@@ -1,5 +1,6 @@
 package com.currencybot.entities;
 
+import com.currencybot.bot.BotState;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,14 +16,17 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class User {
     @Id
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     @NotNull
     private Integer id;
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name")
     @NotBlank
     private String name;
 
-    @Column(name = "surname", nullable = true)
+    @Column(name = "surname")
     private String surname;
+
+    @Column(name = "bot_state")
+    private BotState botState;
 }

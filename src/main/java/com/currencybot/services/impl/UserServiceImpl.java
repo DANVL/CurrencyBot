@@ -1,5 +1,6 @@
 package com.currencybot.services.impl;
 
+import com.currencybot.bot.BotState;
 import com.currencybot.entities.User;
 import com.currencybot.repository.UserRepository;
 import com.currencybot.services.UserService;
@@ -18,7 +19,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(User user) {
-        userRepository.save(user);
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User saveOrGetUser(User user) {
+        return userRepository.findById(user.getId())
+                .orElseGet(() -> save(user));
     }
 }
