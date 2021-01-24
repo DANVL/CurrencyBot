@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.currencybot'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '1.10'
 
 configurations {
     compileOnly {
@@ -19,12 +19,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    //implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'org.postgresql:postgresql'
+    //runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compile "org.telegram:telegrambots-spring-boot-starter:5.0.1"
+    compile "org.slf4j:slf4j-simple:1.7.9"
 }
 
 test {

@@ -1,4 +1,4 @@
-package com.currencybot.bot;
+package com.currencybot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
