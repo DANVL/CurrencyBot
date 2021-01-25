@@ -1,6 +1,7 @@
 package com.currencybot.bot;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.io.Serializable;
 import java.util.List;
 
+@Slf4j
 @Component
 @Getter
 public class Bot extends TelegramLongPollingBot {
@@ -22,8 +24,12 @@ public class Bot extends TelegramLongPollingBot {
     @Value("${bot.token}")
     private String botToken;
 
+    private final UpdateReceiver updateReceiver;
+
     @Autowired
-    private UpdateReceiver updateReceiver;
+    public Bot(UpdateReceiver updateReceiver) {
+        this.updateReceiver = updateReceiver;
+    }
 
 
     @Override
@@ -44,7 +50,7 @@ public class Bot extends TelegramLongPollingBot {
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 }

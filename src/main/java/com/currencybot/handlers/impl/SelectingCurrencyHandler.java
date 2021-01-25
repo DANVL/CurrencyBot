@@ -32,11 +32,11 @@ public class SelectingCurrencyHandler implements Handler {
     public List<PartialBotApiMethod<? extends Serializable>> handle(User user, String message) {
         switch (message.toLowerCase()) {
             case ConfigStrings.DOLLAR:
-                return processSelection(user, Currency.usd);
+                return processSelection(user, Currency.USD);
             case ConfigStrings.EURO:
-                return processSelection(user, Currency.eur);
+                return processSelection(user, Currency.EUR);
             case ConfigStrings.ROUBLE:
-                return processSelection(user, Currency.rur);
+                return processSelection(user, Currency.RUR);
             default:
                 return Collections.emptyList();
         }
@@ -62,7 +62,6 @@ public class SelectingCurrencyHandler implements Handler {
                 List.of(inlineKeyboardButtonsRowOne)
         ));
     }
-
 
     @Override
     public BotState operatedBotState() {

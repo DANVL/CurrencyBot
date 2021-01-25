@@ -51,11 +51,11 @@ public class CurrencyServiceImpl implements CurrencyService {
 
         if (exchanger.isPresent()) {
             switch (currency) {
-                case eur:
+                case EUR:
                     return exchanger.get().getRates().getEur();
-                case rur:
+                case RUR:
                     return exchanger.get().getRates().getRur();
-                case usd:
+                case USD:
                     return exchanger.get().getRates().getUsd();
                 default:
                     throw new NotSupportedCurrencyException();

@@ -4,6 +4,7 @@ import com.currencybot.entities.BotState;
 import com.currencybot.entities.User;
 import com.currencybot.handlers.Handler;
 import com.currencybot.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -14,6 +15,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Component
 public class UpdateReceiver {
 
@@ -45,6 +47,7 @@ public class UpdateReceiver {
 
             throw new UnsupportedOperationException();
         } catch (UnsupportedOperationException e) {
+            log.error("Unsupported operation");
             return Collections.emptyList();
         }
     }

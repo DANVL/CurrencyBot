@@ -1,0 +1,43 @@
+2021-01-25 18:26:10.442  INFO 8116 --- [main] com.currencybot.BotApplication           : Starting BotApplication using Java 11.0.9 on Dan-NoteBook with PID 8116 (D:\STUDIES\bot\build\classes\java\main started by dan in D:\STUDIES\bot)
+2021-01-25 18:26:10.444  INFO 8116 --- [main] com.currencybot.BotApplication           : No active profile set, falling back to default profiles: default
+2021-01-25 18:26:11.174  INFO 8116 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-01-25 18:26:11.258  INFO 8116 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 74 ms. Found 1 JPA repository interfaces.
+2021-01-25 18:26:11.804  INFO 8116 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-01-25 18:26:11.981  INFO 8116 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-01-25 18:26:12.040  INFO 8116 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-01-25 18:26:12.095  INFO 8116 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-01-25 18:26:12.279  INFO 8116 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-01-25 18:26:12.446  INFO 8116 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2021-01-25 18:26:15.174  INFO 8116 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-01-25 18:26:15.193  INFO 8116 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-01-25 18:26:16.611  INFO 8116 --- [main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080
+2021-01-25 18:26:16.627  INFO 8116 --- [main] com.currencybot.BotApplication           : Started BotApplication in 6.679 seconds (JVM running for 10.416)
+2021-01-25 18:26:28.391  INFO 8116 --- [CurrencyBot Telegram Executor] c.c.handlers.impl.StartHandler           : Handling start
+2021-01-25 18:36:17.131  INFO 22188 --- [main] com.currencybot.BotApplication           : Starting BotApplication using Java 11.0.9 on Dan-NoteBook with PID 22188 (D:\STUDIES\bot\build\classes\java\main started by dan in D:\STUDIES\bot)
+2021-01-25 18:36:17.136  INFO 22188 --- [main] com.currencybot.BotApplication           : No active profile set, falling back to default profiles: default
+2021-01-25 18:36:18.050  INFO 22188 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-01-25 18:36:18.153  INFO 22188 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 90 ms. Found 1 JPA repository interfaces.
+2021-01-25 18:36:18.794  INFO 22188 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-01-25 18:36:18.979  INFO 22188 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-01-25 18:36:19.044  INFO 22188 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-01-25 18:36:19.149  INFO 22188 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-01-25 18:36:19.375  INFO 22188 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-01-25 18:36:19.566  INFO 22188 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2021-01-25 18:36:21.280  INFO 22188 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-01-25 18:36:21.295  INFO 22188 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-01-25 18:36:23.433  INFO 22188 --- [main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080
+2021-01-25 18:36:23.450  INFO 22188 --- [main] com.currencybot.BotApplication           : Started BotApplication in 7.16 seconds (JVM running for 11.152)
+2021-01-25 18:37:57.394  INFO 23744 --- [main] com.currencybot.BotApplication           : Starting BotApplication using Java 11.0.9 on Dan-NoteBook with PID 23744 (D:\STUDIES\bot\build\classes\java\main started by dan in D:\STUDIES\bot)
+2021-01-25 18:37:57.398  INFO 23744 --- [main] com.currencybot.BotApplication           : No active profile set, falling back to default profiles: default
+2021-01-25 18:37:58.475  INFO 23744 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-01-25 18:37:58.606  INFO 23744 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 120 ms. Found 1 JPA repository interfaces.
+2021-01-25 18:37:59.415  INFO 23744 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-01-25 18:37:59.610  INFO 23744 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-01-25 18:37:59.709  INFO 23744 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-01-25 18:37:59.833  INFO 23744 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.27.Final
+2021-01-25 18:38:00.277  INFO 23744 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-01-25 18:38:00.566  INFO 23744 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2021-01-25 18:38:02.777  INFO 23744 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-01-25 18:38:02.797  INFO 23744 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-01-25 18:38:05.426  INFO 23744 --- [main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080
+2021-01-25 18:38:05.448  INFO 23744 --- [main] com.currencybot.BotApplication           : Started BotApplication in 8.67 seconds (JVM running for 11.87)

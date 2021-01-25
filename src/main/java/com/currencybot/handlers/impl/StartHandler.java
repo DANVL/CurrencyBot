@@ -7,6 +7,7 @@ import com.currencybot.handlers.Handler;
 import com.currencybot.services.UserService;
 import com.currencybot.utils.ButtonSpecs;
 import com.currencybot.utils.MessageUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
@@ -15,6 +16,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import java.io.Serializable;
 import java.util.List;
 
+@Slf4j
 @Component
 public class StartHandler implements Handler {
 

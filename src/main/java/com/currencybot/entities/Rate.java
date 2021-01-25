@@ -12,9 +12,4 @@ import lombok.Setter;
 public class Rate{
     private String buy;
     private String sel;
-
-    @Override
-    public String toString() {
-        return String.format("%s\\%s",sel,buy);
-    }
 }
