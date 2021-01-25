@@ -1,6 +1,6 @@
 package com.currencybot.handlers;
 
-import com.currencybot.bot.BotState;
+import com.currencybot.entities.BotState;
 import com.currencybot.entities.User;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 

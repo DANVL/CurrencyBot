@@ -1,6 +1,5 @@
 package com.currencybot.services.impl;
 
-import com.currencybot.bot.BotState;
 import com.currencybot.entities.User;
 import com.currencybot.repository.UserRepository;
 import com.currencybot.services.UserService;

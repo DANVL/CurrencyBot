@@ -1,6 +1,5 @@
 package com.currencybot.entities;
 
-import com.currencybot.bot.BotState;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +20,6 @@ public class User {
     private Integer id;
 
     @Column(name = "name")
-    @NotBlank
     private String name;
 
     @Column(name = "surname")
@@ -29,4 +27,10 @@ public class User {
 
     @Column(name = "bot_state")
     private BotState botState;
+
+    @Column(name = "selected_currency")
+    private Currency selectedCurrency;
+
+    @Column(name = "selected_source")
+    private Source selectedSource;
 }

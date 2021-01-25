@@ -1,12 +1,10 @@
 package com.currencybot.utils;
 
-import com.currencybot.bot.BotState;
+import com.currencybot.entities.BotState;
 import com.currencybot.entities.User;
 import com.currencybot.handlers.Handler;
-import com.currencybot.repository.UserRepository;
 import com.currencybot.services.UserService;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.interfaces.BotApiObject;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -31,12 +29,10 @@ public class UpdateReceiver {
 
     public List<PartialBotApiMethod<? extends Serializable>> handle(Update update) {
         try {
-
-            User user;
             if (isMessageWithText(update)) {
                 Message message = update.getMessage();
 
-                user = getUser(message.getFrom());
+                User user = getUser(message.getFrom());
 
                 return getHandlerByState(user.getBotState()).handle(user, message.getText());
 
@@ -53,7 +49,7 @@ public class UpdateReceiver {
         }
     }
 
-    User getUser(org.telegram.telegrambots.meta.api.objects.User form){
+    private User getUser(org.telegram.telegrambots.meta.api.objects.User form){
         int id = form.getId();
         String name = form.getFirstName();
         String surname = form.getLastName();
