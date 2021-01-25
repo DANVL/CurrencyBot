@@ -1,6 +1,5 @@
 package com.currencybot.bot;
 
-import com.currencybot.utils.UpdateReceiver;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package com.currencybot.utils;
+package com.currencybot.bot;
 
 import com.currencybot.entities.BotState;
 import com.currencybot.entities.User;
@@ -49,7 +49,7 @@ public class UpdateReceiver {
         }
     }
 
-    private User getUser(org.telegram.telegrambots.meta.api.objects.User form){
+    private User getUser(org.telegram.telegrambots.meta.api.objects.User form) {
         int id = form.getId();
         String name = form.getFirstName();
         String surname = form.getLastName();

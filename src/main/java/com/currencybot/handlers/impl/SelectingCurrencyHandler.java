@@ -1,16 +1,16 @@
 package com.currencybot.handlers.impl;
 
-import com.currencybot.config.CallBackStrings;
+import com.currencybot.config.ConfigStrings;
 import com.currencybot.entities.BotState;
 import com.currencybot.entities.Currency;
 import com.currencybot.entities.User;
 import com.currencybot.handlers.Handler;
 import com.currencybot.services.UserService;
+import com.currencybot.utils.ButtonSpecs;
+import com.currencybot.utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.io.Serializable;
@@ -31,11 +31,11 @@ public class SelectingCurrencyHandler implements Handler {
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> handle(User user, String message) {
         switch (message.toLowerCase()) {
-            case CallBackStrings.DOLLAR:
+            case ConfigStrings.DOLLAR:
                 return processSelection(user, Currency.usd);
-            case CallBackStrings.EURO:
+            case ConfigStrings.EURO:
                 return processSelection(user, Currency.eur);
-            case CallBackStrings.ROUBLE:
+            case ConfigStrings.ROUBLE:
                 return processSelection(user, Currency.rur);
             default:
                 return Collections.emptyList();
@@ -48,23 +48,19 @@ public class SelectingCurrencyHandler implements Handler {
         user.setBotState(BotState.SELECTING_SOURCE);
         userService.save(user);
 
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
-        List<InlineKeyboardButton> inlineKeyboardButtonsRowOne = List.of(
-                InlineKeyboardButton.builder().text("ощад банк").callbackData(CallBackStrings.OSHAD).build(),
-                InlineKeyboardButton.builder().text("приват банк").callbackData(CallBackStrings.PRIVAT).build(),
-                InlineKeyboardButton.builder().text("https://money24.kharkov.ua/")
-                        .callbackData(CallBackStrings.MONEY24).build());
+        List<InlineKeyboardButton> inlineKeyboardButtonsRowOne = MessageUtils.formKeyboardRow(List.of(
+                new ButtonSpecs("ощад банк",ConfigStrings.OSHAD),
+                new ButtonSpecs("приват банк",ConfigStrings.PRIVAT),
+                new ButtonSpecs("https://money24.kharkov.ua/",ConfigStrings.MONEY24)
+        ));
 
-        inlineKeyboardMarkup.setKeyboard(List.of(inlineKeyboardButtonsRowOne));
 
-        SendMessage message = SendMessage.builder()
-                .chatId(String.valueOf(user.getId()))
-                .text("Выберите источник данных:")
-                .replyMarkup(inlineKeyboardMarkup)
-                .build();
-
-        return List.of(message);
+        return List.of(MessageUtils.formMessage(
+                String.valueOf(user.getId()),
+                "Выберите источник данных:",
+                List.of(inlineKeyboardButtonsRowOne)
+        ));
     }
 
 
@@ -75,6 +71,6 @@ public class SelectingCurrencyHandler implements Handler {
 
     @Override
     public List<String> operatedCallBackQuery() {
-        return List.of(CallBackStrings.DOLLAR, CallBackStrings.EURO, CallBackStrings.ROUBLE);
+        return List.of(ConfigStrings.DOLLAR, ConfigStrings.EURO, ConfigStrings.ROUBLE);
     }
 }

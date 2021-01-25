@@ -1,4 +1,4 @@
-package com.currencybot.dto;
+package com.currencybot.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

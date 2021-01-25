@@ -1,9 +1,13 @@
 package com.currencybot.services.impl;
 
-import com.currencybot.dto.Exchanger;
+import com.currencybot.config.ConfigStrings;
+import com.currencybot.entities.Exchanger;
 import com.currencybot.dto.SourceDto;
 import com.currencybot.entities.Currency;
+import com.currencybot.entities.Rate;
 import com.currencybot.entities.Source;
+import com.currencybot.exceptions.NoExchangersException;
+import com.currencybot.exceptions.NotSupportedCurrencyException;
 import com.currencybot.services.CurrencyService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -14,11 +18,6 @@ import java.util.Optional;
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
 
-    private final String NOT_FOUND = "Не найдено";
-    private final String money24Uri = "https://kurstoday.com.ua/api/service/kharkiv";
-    private final String banksUri = "https://kurstoday.com.ua/api/service/banks-of-ukraine";
-
-
     private final RestTemplate restTemplate;
 
     public CurrencyServiceImpl() {
@@ -27,19 +26,23 @@ public class CurrencyServiceImpl implements CurrencyService {
 
 
     @Override
-    public String getCurrencyRate(Currency currency, Source source) {
+    public Rate getCurrencyRate(Currency currency, Source source)
+            throws NotSupportedCurrencyException, NoExchangersException {
+
         SourceDto result = restTemplate
-                .getForObject(source == Source.MONEY24 ? money24Uri : banksUri,
+                .getForObject(source == Source.MONEY24 ? ConfigStrings.MONEY24_URI : ConfigStrings.BANKS_URI,
                         SourceDto.class);
 
         if (result != null) {
             return processResult(result, currency, source);
-        } else {
-            return NOT_FOUND;
         }
+
+        throw new NoExchangersException();
     }
 
-    private String processResult(SourceDto sourceDto, Currency currency, Source source) {
+    private Rate processResult(SourceDto sourceDto, Currency currency, Source source)
+            throws NotSupportedCurrencyException, NoExchangersException {
+
         List<Exchanger> exchangers = sourceDto.getExchangers();
         Optional<Exchanger> exchanger = exchangers
                 .stream()
@@ -49,20 +52,16 @@ public class CurrencyServiceImpl implements CurrencyService {
         if (exchanger.isPresent()) {
             switch (currency) {
                 case eur:
-                    return formatAnswer(exchanger.get().getRates().getEur().toString(), currency);
+                    return exchanger.get().getRates().getEur();
                 case rur:
-                    return formatAnswer(exchanger.get().getRates().getRur().toString(), currency);
+                    return exchanger.get().getRates().getRur();
                 case usd:
-                    return formatAnswer(exchanger.get().getRates().getUsd().toString(), currency);
+                    return exchanger.get().getRates().getUsd();
                 default:
-                    return NOT_FOUND;
+                    throw new NotSupportedCurrencyException();
             }
         }
 
-        return NOT_FOUND;
-    }
-
-    private String formatAnswer(String base, Currency currency) {
-        return String.format("Покупка\\Продажа %s:\n%s", currency, base);
+        throw new NoExchangersException();
     }
 }

@@ -1,24 +1,29 @@
 package com.currencybot.handlers.impl;
 
-import com.currencybot.config.CallBackStrings;
+import com.currencybot.config.ConfigStrings;
 import com.currencybot.entities.BotState;
-import com.currencybot.entities.Currency;
+import com.currencybot.entities.Rate;
 import com.currencybot.entities.Source;
 import com.currencybot.entities.User;
+import com.currencybot.exceptions.NoExchangersException;
+import com.currencybot.exceptions.NotSupportedCurrencyException;
 import com.currencybot.handlers.Handler;
 import com.currencybot.services.CurrencyService;
 import com.currencybot.services.UserService;
+import com.currencybot.utils.ButtonSpecs;
+import com.currencybot.utils.MessageUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
+
+@Slf4j
 @Component
 public class SelectingSourceHandler implements Handler {
 
@@ -34,41 +39,48 @@ public class SelectingSourceHandler implements Handler {
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> handle(User user, String message) {
 
-        switch (message.toLowerCase()) {
-            case CallBackStrings.OSHAD:
-                return processSelection(user, Source.OSHAD);
-            case CallBackStrings.PRIVAT:
-                return processSelection(user, Source.PRIVAT);
-            case CallBackStrings.MONEY24:
-                return processSelection(user, Source.MONEY24);
-            default:
-                return Collections.emptyList();
+        try {
+            switch (message.toLowerCase()) {
+                case ConfigStrings.OSHAD:
+                    return processSelection(user, Source.OSHAD);
+                case ConfigStrings.PRIVAT:
+                    return processSelection(user, Source.PRIVAT);
+                case ConfigStrings.MONEY24:
+                    return processSelection(user, Source.MONEY24);
+                default:
+                    return Collections.emptyList();
+            }
+        } catch (NoExchangersException e) {
+            log.error("Exchangers not found");
+            return Collections.emptyList();
+        } catch (NotSupportedCurrencyException e) {
+            log.error("Not supported currency found");
+            return Collections.emptyList();
         }
+
     }
 
-    private List<PartialBotApiMethod<? extends Serializable>> processSelection(User user, Source source) {
+    private List<PartialBotApiMethod<? extends Serializable>> processSelection(User user, Source source)
+            throws NotSupportedCurrencyException, NoExchangersException {
+
         user.setSelectedSource(source);
         user.setBotState(BotState.START);
         userService.save(user);
 
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        List<InlineKeyboardButton> inlineKeyboardButtonsRowOne = MessageUtils.formKeyboardRow(List.of(
+                new ButtonSpecs("Выбрать заново", ConfigStrings.BACK)
+        ));
 
-        List<InlineKeyboardButton> inlineKeyboardButtonsRowOne = List.of(
-                InlineKeyboardButton.builder().text("Выбрать заново").callbackData(CallBackStrings.BACK).build());
+        Rate rate = currencyService.getCurrencyRate(user.getSelectedCurrency(), user.getSelectedSource());
 
-        inlineKeyboardMarkup.setKeyboard(List.of(inlineKeyboardButtonsRowOne));
-
-
-
-
-        SendMessage message = SendMessage.builder()
-                .chatId(String.valueOf(user.getId()))
-                .text(String.format("Данные о курсе валюты:\n\n%s",
-                        currencyService.getCurrencyRate(user.getSelectedCurrency(), user.getSelectedSource())))
-                .replyMarkup(inlineKeyboardMarkup)
-                .build();
-
-        return List.of(message);
+        return List.of(MessageUtils.formMessage(
+                String.valueOf(user.getId()),
+                String.format(
+                        "Данные о курсе валюты:\n\nпокупка\\продажа(%s):\n%s\\%s",
+                        user.getSelectedCurrency(), rate.getBuy(), rate.getSel()
+                ),
+                List.of(inlineKeyboardButtonsRowOne)
+        ));
     }
 
 
@@ -79,6 +91,6 @@ public class SelectingSourceHandler implements Handler {
 
     @Override
     public List<String> operatedCallBackQuery() {
-        return List.of(CallBackStrings.OSHAD, CallBackStrings.PRIVAT, CallBackStrings.MONEY24);
+        return List.of(ConfigStrings.OSHAD, ConfigStrings.PRIVAT, ConfigStrings.MONEY24);
     }
 }

@@ -1,5 +1,6 @@
-package com.currencybot.dto;
+package com.currencybot.entities;
 
+import com.currencybot.entities.Rate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
