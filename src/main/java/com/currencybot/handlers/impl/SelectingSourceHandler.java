@@ -2,9 +2,11 @@ package com.currencybot.handlers.impl;
 
 import com.currencybot.config.CallBackStrings;
 import com.currencybot.entities.BotState;
+import com.currencybot.entities.Currency;
 import com.currencybot.entities.Source;
 import com.currencybot.entities.User;
 import com.currencybot.handlers.Handler;
+import com.currencybot.services.CurrencyService;
 import com.currencybot.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,10 +23,12 @@ import java.util.List;
 public class SelectingSourceHandler implements Handler {
 
     private final UserService userService;
+    private final CurrencyService currencyService;
 
     @Autowired
-    public SelectingSourceHandler(UserService userService) {
+    public SelectingSourceHandler(UserService userService, CurrencyService currencyService) {
         this.userService = userService;
+        this.currencyService = currencyService;
     }
 
     @Override
@@ -54,14 +58,19 @@ public class SelectingSourceHandler implements Handler {
 
         inlineKeyboardMarkup.setKeyboard(List.of(inlineKeyboardButtonsRowOne));
 
+
+
+
         SendMessage message = SendMessage.builder()
                 .chatId(String.valueOf(user.getId()))
-                .text("Данные по валюте:")
+                .text(String.format("Данные о курсе валюты:\n\n%s",
+                        currencyService.getCurrencyRate(user.getSelectedCurrency(), user.getSelectedSource())))
                 .replyMarkup(inlineKeyboardMarkup)
                 .build();
 
         return List.of(message);
     }
+
 
     @Override
     public BotState operatedBotState() {
