@@ -6,6 +6,7 @@ import com.currencybot.entities.*;
 import com.currencybot.exceptions.NoExchangersException;
 import com.currencybot.repository.UserRepository;
 import com.currencybot.services.CurrencyService;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -68,5 +69,10 @@ class CurrencyServiceImplTest {
 
         Assertions.assertThrows(NoExchangersException.class,
                 () -> currencyService.getCurrencyRate(Currency.USD, Source.MONEY24));
+    }
+
+    @Test
+    public void fakeTest(){
+        Assert.assertEquals(1,2);
     }
 }
