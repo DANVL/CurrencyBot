@@ -1,9 +1,9 @@
 package com.currencybot.services.impl;
 
 import com.currencybot.config.ConfigStrings;
-import com.currencybot.entities.Exchanger;
 import com.currencybot.dto.SourceDto;
 import com.currencybot.entities.Currency;
+import com.currencybot.entities.Exchanger;
 import com.currencybot.entities.Rate;
 import com.currencybot.entities.Source;
 import com.currencybot.exceptions.NoExchangersException;
@@ -20,8 +20,9 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     private final RestTemplate restTemplate;
 
-    public CurrencyServiceImpl() {
-        this.restTemplate = new RestTemplate();
+    public CurrencyServiceImpl(RestTemplate restTemplate) {
+
+        this.restTemplate = restTemplate;
     }
 
 
@@ -32,6 +33,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         SourceDto result = restTemplate
                 .getForObject(source == Source.MONEY24 ? ConfigStrings.MONEY24_URI : ConfigStrings.BANKS_URI,
                         SourceDto.class);
+
 
         if (result != null) {
             return processResult(result, currency, source);
@@ -64,4 +66,6 @@ public class CurrencyServiceImpl implements CurrencyService {
 
         throw new NoExchangersException();
     }
+
+
 }

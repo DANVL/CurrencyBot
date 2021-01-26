@@ -7,7 +7,7 @@ public enum Source {
 
     private final int value;
 
-    private Source(int i) {
+    Source(int i) {
         this.value = i;
     }
 
